@@ -1,0 +1,129 @@
+<!doctype html>
+<!--
+  新聞中心版型：報紙風（給 AI 套版用，使用者看不到這段）
+  套版步驟：
+  1. 自訂配色：只改 :root 的色票（--primary 主色、--accent 強調、--bg 底色、--text 文字）。文字和底色對比至少 4.5:1
+  2. 把所有 {{…}} 換成真的內容。範例只有一則新聞，照同樣結構複製 <article class="item">
+  3. 每個主題一個 <section class="topic" id="t1">，id 依序 t1、t2…，上方 nav 的連結跟著改
+  4. 每份都要留頁尾的「查證說明」（.verify），照 news-rules.md「事實查證 7.」填
+  5. 使用者沒勾的項目整塊刪掉：一句話結論（.lead）、三重點（.brief）、洞察（.insights）、判斷總覽（.judge）、
+     每則的重要性／可信度標籤、💡跟你有什麼關係（.why）、✅需要行動（.action）
+  6. 洞察是推論成分高的，chip 加 class="guess"，文字後面加「・推測」
+  7. 可信度出現「傳聞、單一來源、廠商新聞稿、業配、測試中、平台自行公布」時，chip 加 class="cred-warn"
+  
+  整份檔案不依賴網路，雙擊就能打開；用瀏覽器「列印 → 另存為 PDF」就是 A4 PDF。
+-->
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{新聞中心名稱}}｜{{日期，例：2026 年 11 月 24 日 星期一}}</title>
+<style>
+  :root {
+    --primary: #111111; --accent: #8E1B1B; --on-accent: #FFFFFF;
+    --bg: #FBFAF7; --card: #FBFAF7; --text: #151515; --muted: #5E5A55; --line: #CFCAC2;
+    --tint: #EEEBE5; --why-bg: #F1EEE8; --act-bg: #F6E9E4; --warn-bg: #F6E3E1; --warn: #8E1B1B;
+    --font-body: "Noto Serif TC", "Songti TC", "PMingLiU", "Source Han Serif TC", Georgia, serif;
+    --font-head: "Noto Serif TC", "Songti TC", "PMingLiU", Georgia, serif; --max: 980px;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-body);
+         font-size: 16px; line-height: 1.7; }
+  a { color: var(--primary); }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 16px 56px; }
+  .chip { display: inline-block; font-size: 12.5px; line-height: 1.6; padding: 0 8px; border-radius: 6px;
+          background: var(--tint); color: var(--primary); white-space: nowrap; }
+  .chip.imp-high { background: var(--accent); color: var(--on-accent); font-weight: 700; }
+  .chip.imp-mid  { background: var(--tint); color: var(--primary); }
+  .chip.imp-low  { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+  .chip.cred-warn { background: var(--warn-bg); color: var(--warn); }
+  .chip.guess { background: var(--warn-bg); color: var(--warn); }
+  .labels { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
+  .no { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .meta { font-size: 13px; color: var(--muted); margin: 0 0 10px; display: flex; flex-wrap: wrap; gap: 2px 12px; }
+  .orig { font-size: 13px; color: var(--muted); margin: -2px 0 8px; font-style: italic; }
+  .summary { margin: 0; padding-left: 1.2em; }
+  .summary li { margin: 2px 0; }
+  .why, .action { margin: 10px 0 0; padding: 9px 13px; border-radius: 8px; font-size: 15px; }
+  .why { background: var(--why-bg); }
+  .action { background: var(--act-bg); }
+  .refs { color: var(--muted); font-size: 13px; white-space: nowrap; }
+  .sources, .primary { margin: 8px 0 0; font-size: 14px; color: var(--muted); }
+  .sources a, .primary a { color: inherit; }
+  .verify { margin: 36px 0 0; padding: 12px 16px; border: 1px dashed var(--line); border-radius: 10px; font-size: 14px; color: var(--muted); }
+  footer { margin-top: 40px; font-size: 13px; color: var(--muted); text-align: center; }
+  @media print {
+    @page { size: A4; margin: 14mm; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size: 11pt; }
+    nav.chips { display: none; }
+    article.item, .box { break-inside: avoid; }
+  }
+
+  body { line-height: 1.75; }
+  a { color: var(--text); }
+  header.masthead { text-align: center; padding: 28px 0 0; }
+  header.masthead .rule { border-top: 3px double var(--text); border-bottom: 1px solid var(--text); padding: 8px 0 12px; margin-top: 10px; }
+  .eyebrow { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin: 0; border-bottom: 1px solid var(--text); padding-bottom: 6px; }
+  h1 { font-family: var(--font-head); font-size: clamp(34px, 7vw, 58px); line-height: 1.1; margin: 0; font-weight: 900; letter-spacing: .02em; }
+  .greeting { margin: 6px 0 0; font-style: italic; color: var(--muted); }
+  nav.chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px 18px; margin: 8px 0 0; padding: 6px 0; border-bottom: 1px solid var(--text); font-size: 14px; }
+  nav.chips a { text-decoration: none; letter-spacing: .08em; }
+  .front { display: grid; grid-template-columns: 1.4fr 1fr; gap: 0 28px; margin-top: 22px; }
+  .box { break-inside: avoid; }
+  .box h2 { font-size: 13px; letter-spacing: .18em; margin: 0 0 6px; color: var(--accent); }
+  .lead p { margin: 0; font-family: var(--font-head); font-size: clamp(22px, 3.4vw, 30px); line-height: 1.35; font-weight: 900; }
+  .brief { border-left: 1px solid var(--line); padding-left: 24px; }
+  .brief ol { margin: 0; padding-left: 1.2em; }
+  .insights { margin-top: 22px; padding: 14px 0; border-top: 1px solid var(--text); border-bottom: 1px solid var(--text); }
+  .insights ul { margin: 0; padding: 0; list-style: none; columns: 3 220px; column-gap: 28px; }
+  .insights li { break-inside: avoid; margin: 0 0 8px; }
+  .judge { margin-top: 10px; font-size: 13px; color: var(--muted); display: flex; justify-content: center; flex-wrap: wrap; gap: 4px 22px; letter-spacing: .06em; }
+  .judge b { color: var(--text); margin-right: 3px; }
+  section.topic { margin-top: 30px; }
+  section.topic > h2 { font-family: var(--font-head); font-size: 14px; letter-spacing: .22em; margin: 0 0 14px; padding: 4px 0; border-top: 2px solid var(--text); border-bottom: 1px solid var(--text); }
+  section.topic > h2 .count { font-weight: 400; color: var(--muted); margin-left: 8px; letter-spacing: 0; }
+  .items { columns: 2 300px; column-gap: 30px; column-rule: 1px solid var(--line); }
+  article.item { break-inside: avoid; margin: 0 0 22px; }
+  .item h3 { font-family: var(--font-head); font-size: 21px; line-height: 1.35; margin: 0 0 6px; font-weight: 900; }
+  .item h3 a { text-decoration: none; }
+  .item h3 a:hover { text-decoration: underline; }
+  .chip { border-radius: 0; }
+  .why, .action { border-radius: 0; }
+  @media (max-width: 720px) { .front { grid-template-columns: 1fr; } .brief { border-left: 0; padding-left: 0; margin-top: 16px; border-top: 1px solid var(--line); padding-top: 12px; } }
+</style>
+</head>
+<body class="style-times">
+<header class="masthead"><div class="wrap" style="padding-bottom:0">
+<p class="eyebrow"><span>{{日期，例：2026 年 11 月 24 日 星期一}}</span><span>{{期別或涵蓋期間，例：第 12 期・涵蓋 11/17–11/23}}</span></p>
+<div class="rule"><h1>{{新聞中心名稱}}</h1><p class="greeting">{{招呼語，例：早安，Amy！今天整理了 8 則，約 5 分鐘看完。}}</p></div>
+<nav class="chips"><a href="#t1">{{主題 1}}</a></nav></div></header>
+<main class="wrap">
+<div class="front">
+<section class="box lead"><h2>一句話結論</h2><p>{{一句話結論：今天最重要的一件事}}</p></section>
+<section class="box brief"><h2>今日三重點</h2><ol><li>{{重點 1，一句話}}</li><li>{{重點 2}}</li><li>{{重點 3}}</li></ol></section>
+</div>
+<section class="box insights"><h2>AI 幫你多想一步</h2><ul><li><span class="chip">{{洞察類型：趨勢／影響／競品動態／機會／風險}}</span> {{一句話洞察}} <span class="refs">依據：{{第幾則，例：No.1、No.2}}</span></li><li><span class="chip guess">{{推論成分高的洞察}}・推測</span> {{一句話，用「可能」「可以留意」}} <span class="refs">依據：{{No.3}}</span></li></ul></section>
+<section class="judge"><span><b>{{N}}</b>則新聞</span><span><b>{{N}}</b>則重要性高</span><span><b>{{N}}</b>則需要行動</span><span><b>{{N}}</b>則要留意可信度</span></section>
+<section class="topic" id="t1">
+<h2>{{主題 1}}<span class="count">1 則</span></h2>
+<div class="items">
+<article class="item">
+  <div class="labels"><span class="no">No.1</span><span class="chip imp-high">重要性 高</span><span class="chip cred-warn">{{可信度：官方公告／多方報導／單一來源／傳聞／廠商新聞稿}}</span></div>
+  <h3><a href="{{原文連結}}" target="_blank" rel="noopener">{{用自己的話改寫的標題}}</a></h3>
+  <p class="orig">{{國外新聞保留原文標題時才放}}</p>
+  <p class="meta"><span>{{台灣／國際／國家}}</span><span>{{媒體名稱}}</span><span>{{發布日期，例：11/18}}</span></p>
+  <ul class="summary"><li>{{重點 1}}</li><li>{{重點 2}}</li><li>{{重點 3}}</li></ul>
+  <p class="why">💡 <strong>跟你有什麼關係：</strong>{{一句連到使用者職業與用途的話}}</p>
+  <p class="action">✅ <strong>需要行動：</strong>{{具體的下一步；不需要行動就整行刪掉}}</p>
+  <p class="sources">其他報導：<a href="{{連結}}" target="_blank" rel="noopener">{{其他報導的媒體＋日期；沒有就整行刪掉}}</a></p>
+  <p class="primary">📄 第一手資料：<a href="{{連結}}" target="_blank" rel="noopener">{{第一手資料名稱，例：官方公告；設定不追第一手就整行刪掉}}</a></p>
+</article>
+</div>
+</section>
+<section class="verify">🔎 <strong>查證說明：</strong>本期 {{N}} 則：交叉查證 {{N}} 則、第一手 {{N}} 則、單一來源 {{N}} 則；排除 {{N}} 則（{{原因，例：只有社群貼文、原文打不開}}）</section>
+<footer>{{新聞中心名稱}} ・ 由 AI 依你的設定整理，內容以各原文為準 ・ {{則數不足時：今天「主題」相關新聞較少，共 N 則}}</footer>
+</main>
+</body>
+</html>
