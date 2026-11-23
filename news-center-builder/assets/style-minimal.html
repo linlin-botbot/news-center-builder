@@ -3,13 +3,13 @@
   新聞中心版型：簡約版（給 AI 套版用，使用者看不到這段）
   套版步驟：
   1. 自訂配色：只改 :root 的色票（--primary 主色、--accent 強調、--bg 底色、--text 文字）。文字和底色對比至少 4.5:1
-  2. 把所有 {{…}} 換成真的內容。範例只有一則新聞，照同樣結構複製 <article class="item">
+  2. 把所有 {{…}} 換成真的內容（星期幾要實際算過）。範例只有一則新聞，照同樣結構複製 <article class="item">
   3. 每個主題一個 <section class="topic" id="t1">，id 依序 t1、t2…，上方 nav 的連結跟著改
   4. 每份都要留頁尾的「查證說明」（.verify），照 news-rules.md「事實查證 7.」填
   5. 使用者沒勾的項目整塊刪掉：一句話結論（.lead）、三重點（.brief）、洞察（.insights）、判斷總覽（.judge）、
      每則的重要性／可信度標籤、💡跟你有什麼關係（.why）、✅需要行動（.action）
   6. 洞察是推論成分高的，chip 加 class="guess"，文字後面加「・推測」
-  7. 可信度出現「傳聞、單一來源、廠商新聞稿、業配、測試中、平台自行公布」時，chip 加 class="cred-warn"
+  7. 可信度出現「傳聞、單一來源、同一新聞稿、廠商新聞稿、業配、測試中、平台自行公布」時，chip 加 class="cred-warn"
   
   整份檔案不依賴網路，雙擊就能打開；用瀏覽器「列印 → 另存為 PDF」就是 A4 PDF。
 -->
@@ -17,7 +17,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{新聞中心名稱}}｜{{日期，例：2026 年 11 月 24 日 星期一}}</title>
+<title>{{新聞中心名稱}}｜{{日期，例：2026 年 11 月 24 日 星期二}}</title>
 <style>
   :root {
     --primary: #2450C8; --accent: #2450C8; --on-accent: #FFFFFF;
@@ -88,20 +88,20 @@
 </head>
 <body class="style-minimal">
 <header class="masthead"><div class="wrap" style="padding-bottom:0">
-<p class="eyebrow">{{日期，例：2026 年 11 月 24 日 星期一}} ・ {{期別或涵蓋期間，例：第 12 期・涵蓋 11/17–11/23}}</p>
+<p class="eyebrow">{{日期，例：2026 年 11 月 24 日 星期二}} ・ {{期別或涵蓋期間，例：第 12 期・涵蓋 11/17–11/23}}</p>
 <h1>{{新聞中心名稱}}</h1>
 <p class="greeting">{{招呼語，例：早安，Amy！今天整理了 8 則，約 5 分鐘看完。}}</p>
 <nav class="chips"><a href="#t1">{{主題 1}}</a></nav></div></header>
 <main class="wrap">
 <section class="box lead"><h2>一句話結論</h2><p>{{一句話結論：今天最重要的一件事}}</p></section>
 <section class="box brief"><h2>今日三重點</h2><ol><li>{{重點 1，一句話}}</li><li>{{重點 2}}</li><li>{{重點 3}}</li></ol></section>
-<section class="box insights"><h2>AI 幫你多想一步</h2><ul><li><span class="chip">{{洞察類型：趨勢／影響／競品動態／機會／風險}}</span> {{一句話洞察}} <span class="refs">依據：{{第幾則，例：No.1、No.2}}</span></li><li><span class="chip guess">{{推論成分高的洞察}}・推測</span> {{一句話，用「可能」「可以留意」}} <span class="refs">依據：{{No.3}}</span></li></ul></section>
+<section class="box insights"><h2>AI 的洞察</h2><ul><li><span class="chip">{{洞察類型：趨勢／影響／競品動態／機會／風險}}</span> {{一句話洞察}} <span class="refs">依據：{{第幾則，例：No.1、No.2}}</span></li><li><span class="chip guess">{{推論成分高的洞察}}・推測</span> {{一句話，用「可能」「可以留意」}} <span class="refs">依據：{{No.3}}</span></li></ul></section>
 <section class="judge"><span><b>{{N}}</b>則新聞</span><span><b>{{N}}</b>則重要性高</span><span><b>{{N}}</b>則需要行動</span><span><b>{{N}}</b>則要留意可信度</span></section>
 <section class="topic" id="t1">
 <h2>{{主題 1}}<span class="count">1 則</span></h2>
 <div class="items">
 <article class="item">
-  <div class="labels"><span class="no">No.1</span><span class="chip imp-high">重要性 高</span><span class="chip cred-warn">{{可信度：官方公告／多方報導／單一來源／傳聞／廠商新聞稿}}</span></div>
+  <div class="labels"><span class="no">No.1</span><span class="chip imp-high">重要性 高</span><span class="chip cred-warn">{{可信度：官方公告／多方報導／同一新聞稿／單一來源／傳聞／廠商新聞稿}}</span></div>
   <h3><a href="{{原文連結}}" target="_blank" rel="noopener">{{用自己的話改寫的標題}}</a></h3>
   <p class="orig">{{國外新聞保留原文標題時才放}}</p>
   <p class="meta"><span>{{台灣／國際／國家}}</span><span>{{媒體名稱}}</span><span>{{發布日期，例：11/18}}</span></p>
@@ -113,7 +113,7 @@
 </article>
 </div>
 </section>
-<section class="verify">🔎 <strong>查證說明：</strong>本期 {{N}} 則：交叉查證 {{N}} 則、第一手 {{N}} 則、單一來源 {{N}} 則；排除 {{N}} 則（{{原因，例：只有社群貼文、原文打不開}}）</section>
+<section class="verify">🔎 <strong>查證說明：</strong>本期 {{N}} 則：交叉查證 {{N}} 則、第一手 {{N}} 則、同一新聞稿 {{N}} 則、單一來源 {{N}} 則；排除 {{N}} 則（{{原因，例：只有社群貼文、原文打不開}}）。{{追蹤補充（超出時間範圍，不計入則數）：標題、日期、連結，最多 3 則；沒有就刪掉這句}}</section>
 <footer>{{新聞中心名稱}} ・ 由 AI 依你的設定整理，內容以各原文為準 ・ {{則數不足時：今天「主題」相關新聞較少，共 N 則}}</footer>
 </main>
 </body>

@@ -51,7 +51,7 @@
   a { color: var(--text); }
   header.masthead { text-align: center; padding: 28px 0 0; }
   header.masthead .rule { border-top: 3px double var(--text); border-bottom: 1px solid var(--text); padding: 8px 0 12px; margin-top: 10px; }
-  .eyebrow { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin: 0; border-bottom: 1px solid var(--text); padding-bottom: 6px; }
+  .eyebrow { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 16px; font-size: 13px; color: var(--muted); margin: 0; border-bottom: 1px solid var(--text); padding-bottom: 6px; }
   h1 { font-family: var(--font-head); font-size: clamp(34px, 7vw, 58px); line-height: 1.1; margin: 0; font-weight: 900; letter-spacing: .02em; }
   .greeting { margin: 6px 0 0; font-style: italic; color: var(--muted); }
   nav.chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px 18px; margin: 8px 0 0; padding: 6px 0; border-bottom: 1px solid var(--text); font-size: 14px; }
@@ -72,7 +72,11 @@
   section.topic > h2 .count { font-weight: 400; color: var(--muted); margin-left: 8px; letter-spacing: 0; }
   .items { columns: 2 300px; column-gap: 30px; column-rule: 1px solid var(--line); }
   article.item { break-inside: avoid; margin: 0 0 22px; }
+  .items:has(> article.item:only-child), .items:has(> article.item.cover + article.item:last-child) { columns: 1; }
+  article.item.cover { column-span: all; border-bottom: 1px solid var(--text); padding-bottom: 18px; margin-bottom: 20px; }
+  .items:has(> article.item.cover:only-child) article.item.cover { border-bottom: 0; padding-bottom: 0; }
   .item h3 { font-family: var(--font-head); font-size: 21px; line-height: 1.35; margin: 0 0 6px; font-weight: 900; }
+  article.item.cover h3 { font-size: clamp(27px, 4.6vw, 42px); line-height: 1.25; }
   .item h3 a { text-decoration: none; }
   .item h3 a:hover { text-decoration: underline; }
   .chip { border-radius: 0; }
@@ -90,12 +94,12 @@
 <section class="box lead"><h2>一句話結論</h2><p>這週最該做的事：雙11檢討報告把毛利和廣告費一起放進來，不要只報營收。</p></section>
 <section class="box brief"><h2>今日三重點</h2><ol><li>雙11各平台報喜，但數字多是「比平日」的倍數，不能跟自家年增率直接比</li><li>業績往檔期集中、折扣加碼，業界提醒營收上升、獲利可能變薄</li><li>IG 限時動態發出後 15 分鐘內可以修改，小編的修正流程可以更新</li></ol></section>
 </div>
-<section class="box insights"><h2>AI 幫你多想一步</h2><ul><li><span class="chip">趨勢</span> 兩則雙11報導都指向同一件事：業績集中在檔期，折扣吃掉獲利。 <span class="refs">依據：No.1、No.2</span></li><li><span class="chip">機會</span> IG 限動可以發出後再改，可以寫一篇「小編省時技巧」貼文。 <span class="refs">依據：No.3</span></li><li><span class="chip guess">風險・推測</span> 平台開始抓搬運和改寫腳本，合作網紅的素材來源可能要先確認。 <span class="refs">依據：No.4</span></li></ul></section>
+<section class="box insights"><h2>AI 的洞察</h2><ul><li><span class="chip">趨勢</span> 兩則雙11報導都指向同一件事：業績集中在檔期，折扣吃掉獲利。 <span class="refs">依據：No.1、No.2</span></li><li><span class="chip">機會</span> IG 限動可以發出後再改，可以寫一篇「小編省時技巧」貼文。 <span class="refs">依據：No.3</span></li><li><span class="chip guess">風險・推測</span> 平台開始抓搬運和改寫腳本，合作網紅的素材來源可能要先確認。 <span class="refs">依據：No.4</span></li></ul></section>
 <section class="judge"><span><b>6</b>則新聞</span><span><b>2</b>則重要性高</span><span><b>2</b>則需要行動</span><span><b>3</b>則要留意可信度</span></section>
 <section class="topic" id="t1">
 <h2>電商與檔期<span class="count">2 則</span></h2>
 <div class="items">
-<article class="item">
+<article class="item cover">
   <div class="labels"><span class="no">No.1</span><span class="chip imp-high">重要性 高</span><span class="chip cred-warn">平台自行公布・兩家媒體報導</span></div>
   <h3><a href="https://www.chinatimes.com/realtimenews/20261112004150-260405" target="_blank" rel="noopener">雙11成績單：蝦皮開賣 1 分鐘買氣達平日 73 倍，momo 人流比平日多 150%</a></h3>
   <p class="meta"><span>台灣</span><span>中時新聞網</span><span>11/12</span></p>

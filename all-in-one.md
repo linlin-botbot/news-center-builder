@@ -24,6 +24,7 @@
 - **一次只問一輪**，每輪 3–5 題，問完回一行「我記下了：……」再往下
 - **每題都給選項和預設值**，使用者可以只回「都用預設」或「你幫我決定」
 - 有 `AskUserQuestion` 之類的選項工具就用；沒有就用編號清單，請他回編號
+- **選項工具一題最多放 4 個選項時**：照 `interview.md` 的分組拆成同一輪的兩題，不要把選項藏進「其他」；稱呼、職稱、領域這種開放題，直接用文字問
 - **不講技術名詞**：不說 frontmatter、YAML、repo，說「設定」「檔案」「資料夾」
 - 使用者答得很短也沒關係，從前面的回答推好預設值給他確認，不要逼他想
 
@@ -113,7 +114,7 @@ xxx-news-center/
 
 5. 壓成 `xxx-news-center.zip` 給他下載，並附安裝步驟（依他用的工具，見 `references/scheduling.md`）
 
-打包前自我檢查：`SKILL.md` 的 `name` 跟資料夾名稱一致、`description` 裡有「今天的新聞」「我的新聞中心」等叫用語、沒有殘留 `{{`。
+打包前自我檢查：`SKILL.md` 的 `name` 跟資料夾名稱一致、**`description` 在 200 字以內**（Claude 上傳 skill 的說明頁寫上限 200 字）而且有「今天的新聞」「我的新聞中心」等叫用語、沒勾的項目（例如三重點）沒有殘留在步驟和通知訊息裡、`SKILL.md` 沒有殘留 `{{`。
 
 ### 步驟 10：設定排程、寄送與分享
 
@@ -142,6 +143,8 @@ xxx-news-center/
 | 「我不知道要看什麼主題」 | 依職業直接給 3 個建議主題，請他先用，之後再改 |
 | 答案很模糊（「科技相關」） | 追問一次給選項：「是 AI 工具、半導體、手機新品，還是新創募資？」 |
 | 想看太多主題（>6 個） | 建議先挑 3–5 個；主題太多每類只剩 1–2 則，反而沒重點 |
+| 每天收，但主題多、則數多 | 照 `interview.md` 第 5 輪的「份量提醒」給他選，不要硬湊則數 |
+| 追蹤的關鍵字有新聞，但超出時間範圍 | 不收進正文，放頁尾「追蹤補充」一行（見 news-rules.md「篩選」） |
 | 說不出要看什麼來源 | 依目的推薦三層來源各 2–3 個，請他先用，看幾期再增減 |
 | 想看 PTT、Dcard、Threads 的討論 | 可以收當線索，但要找到媒體或第一手報導才放進報告 |
 | 問「AI 查過就一定對嗎？」 | 不一定。教他每份抽查 2 則原文，錯了直接回報（見 news-rules.md「使用者端的驗證」） |
@@ -160,6 +163,8 @@ xxx-news-center/
 
 每輪問完回一行「我記下了：……」再進下一輪。標 ⭐ 的是預設值；使用者說「你幫我決定」就用預設，或依他前面的回答推一個更合適的值。
 
+**選項很多的題目**：標「A 組／B 組」的題目，用一題最多 4 個選項的工具時拆成兩題（題目寫 1/2、2/2），每題補一個「你幫我決定」；用文字問就一次全列。兩題的答案合併計算，**不要只列前 4 個、把其他的丟給「其他」**。一輪拆完超過 4 題，就分兩次問，仍算同一輪。
+
 問的順序有道理，不要調換：**先問用途，再問內容，最後才問長相與寄送**。用途決定報告結構，長相只是外殼。
 
 ```
@@ -177,16 +182,14 @@ xxx-news-center/
 
 1. **怎麼稱呼你？**（報告會用這個名字跟你打招呼，例：「早安，Amy」）
 2. **你的職稱、產業和主要負責的事？**
-   - 選項：行銷／業務／主管或老闆／產品或企劃／顧問或講師／學生／自訂
-   - 追問一句：「你平常在忙什麼？」（例：「負責公司的社群和電子報」）
+   - 用文字問，請他照「電商行銷，負責社群和電子報」這樣寫一句
+   - 一定要用選項時分組：A 組 行銷／業務／主管或老闆；B 組 產品或企劃／顧問或講師／學生；自訂
+   - **只答了職稱、沒說領域就一定要追問**：「你主要在哪個領域？」（顧問或講師：教什麼、輔導什麼；主管：管哪個部門；產品或企劃：做什麼產品；學生：讀什麼、想走哪一行）。不知道領域，第 2 輪就推不出具體主題
+   - 再追問一句：「你平常在忙什麼？」（例：「負責公司的社群和電子報」）
 3. **你負責哪個市場或地區？**（選填，例：台灣、日本、東南亞、全球）
 4. **看完這份新聞，你會拿它去做什麼？**（可複選）**這題最重要**
-   - ⭐ 開會或向主管報告
-   - 寫內容（貼文、部落格、電子報、簡報的題材）
-   - 盯競爭對手
-   - 找客戶話題（跟客戶聊天、拜訪前準備）
-   - 做決策（要不要投入、要不要調整做法）
-   - 自己學習、跟上產業
+   - A 組（拿去用）：⭐ 開會或向主管報告／寫內容（貼文、部落格、電子報、簡報的題材）／找客戶話題（跟客戶聊天、拜訪前準備）
+   - B 組（拿去判斷）：盯競爭對手／做決策（要不要投入、要不要調整做法）／自己學習、跟上產業
    - 自訂
 
 > 💡 第 4 題決定後面三輪的預設值（見第 3 輪的對照表），也決定「跟你有什麼關係」那一句的角度：
@@ -241,6 +244,7 @@ xxx-news-center/
 | 社群與意見 | 社群貼文、論壇、KOL、部落格 | **只當線索**，要找到上兩層的報導才收 | Threads、PTT、Dcard、個人電子報 |
 
    - 追問：有沒有一定要看的來源？一定要排除的？（例：內容農場、特定立場媒體）
+   - **推薦之前先試開一次**：有些網站會擋 AI 讀取（2026-11-24 測過，經濟部新聞頁打不開）。打不開的不要列進清單，改推讀得到的替代來源（例：中央社的政府新聞），並跟他說一聲
    - 他說「你幫我決定」：依目的推薦（見下表），並告訴他之後可以隨時增減
 
 **目的 → 預設廣度、深度、來源重點**（使用者說「你幫我決定」時用）
@@ -264,18 +268,22 @@ xxx-news-center/
 > 「洞察」是幫你**解讀**：這件事代表什麼。「判斷」是幫你**篩選和下決定**：這件事重不重要、要不要行動。
 
 1. **除了摘要，要 AI 幫你多想哪一步？（洞察，可複選）**
-   - 趨勢：這段時間大家都在講什麼、跟上次比有什麼變化
-   - 影響：對我的產業、公司或客戶有什麼影響
-   - 競品動態：對手做了什麼、我們要不要回應
-   - 機會：可以拿來做什麼內容、提案或產品
-   - 風險：法規、輿論、市場要注意的地方
-   - 一句話結論：今天最重要的一件事
+   - A 組（看外面）
+     - 趨勢：這段時間大家都在講什麼、跟上次比有什麼變化
+     - 競品動態：對手做了什麼、我們要不要回應
+     - 一句話結論：今天最重要的一件事
+   - B 組（看自己）
+     - 影響：對我的產業、公司或客戶有什麼影響
+     - 機會：可以拿來做什麼內容、提案或產品
+     - 風險：法規、輿論、市場要注意的地方
 2. **要 AI 幫你下哪些判斷？（可複選）**
-   - 重要性：每則標「高／中／低」，高的排前面
-   - 要不要行動：標出「需要你處理」的新聞，附建議的下一步
-   - 可信度：標出傳聞、單一來源、廠商業配或新聞稿
-   - 跟我有沒有關：不相關的直接不放
-   - 好消息還是壞消息：對我們是正面還是負面
+   - A 組（先看什麼）
+     - 重要性：每則標「高／中／低」，高的排前面
+     - 要不要行動：標出「需要你處理」的新聞，附建議的下一步
+     - 跟我有沒有關：不相關的直接不放
+   - B 組（怎麼看待）
+     - 可信度：標出傳聞、單一來源、廠商業配或新聞稿
+     - 好消息還是壞消息：對我們是正面還是負面
 3. **要不要在最上面放「今日三重點」？**（30 秒看完最重要的事）⭐ 要／不用
 
 **用途 → 預設勾選對照表**（使用者說「你幫我決定」時用）
@@ -348,6 +356,11 @@ xxx-news-center/
    - 自訂
    - 追問：時區（跨國工作的人要問，例：台灣時間或日本時間）
 3. **每次涵蓋多長時間的新聞？** ⭐ 跟頻率一樣（每天就看過去 24 小時，星期一自動含週末；每週就看過去 7 天）／自訂
+   - **份量提醒**：每天收、主題 4 個以上、份量 8 則以上，問一句：「照查證規則，一天內能收的新聞有限，有些主題可能只有 1 則。要怎麼調？」
+     - ⭐ 照原設定，則數當上限，不夠就少給
+     - 改成每天最多 5 則
+     - 涵蓋過去 48 小時，不重複收上一期的新聞
+     - 改成每週兩次（例：星期二、五）
 4. **怎麼收到？**（可複選，第一個選的是主要管道）
    - ⭐ 單頁網頁（HTML 檔，雙擊就能打開，也能分享）
    - Email（寄到自己的信箱）
@@ -403,6 +416,8 @@ xxx-news-center/
 ##### 2. 交叉查證
 - **重要性「高」或標了「需要行動」的新聞**：至少兩個彼此獨立的來源（不是互相轉載），或一個第一手來源
 - 只找到一個來源：可以收，但可信度標「單一來源」，不能標重要性「高」
+- 多家媒體寫同一份新聞稿或同一場發布會：**不算獨立來源**，可信度標「同一新聞稿」，除非另外找到第一手資料
+- 報導來自活動主辦或合作方（例：主辦論壇的媒體報導講者）：註明這層關係
 - 多家媒體說法不同：寫出差異（「A 報導 30%，B 報導 25%」），不自己挑一個
 
 ##### 3. 數字
@@ -411,7 +426,9 @@ xxx-news-center/
 - 平台或公司自己公布的數字，可信度標「自行公布」
 
 ##### 4. 日期
-- 分清楚「發布日期」和「事件日期」；舊聞被轉載成新文章的，以最早的報導日期為準，超出範圍就不收
+- 分清楚「發布日期」和「事件日期」；舊聞被轉載、翻譯或改寫成新文章的，以最早的報導日期為準，超出範圍就不收
+- 舊事件在時間範圍內有**新進展**（新數字、新決定、正式上線），可以收，標題要寫新進展，不是重講舊事
+- 報告上的「星期幾」要實際算過再寫
 - 人物職稱、公司人事會變：照報導當時的寫法，必要時加上「（截至 X 月 X 日）」
 
 ##### 5. 連結
@@ -425,7 +442,7 @@ xxx-news-center/
 - 推論：AI 自己的判斷，一律標「推測」或用「可能」「可以留意」
 
 ##### 7. 查證說明（放在報告最下面）
-每份報告頁尾加一行：「本期 N 則：交叉查證 N 則、第一手 N 則、單一來源 N 則；排除 N 則（原因）」。讓使用者一眼知道這份報告有多可靠。
+每份報告頁尾加一行：「本期 N 則：交叉查證 N 則、第一手 N 則、同一新聞稿 N 則、單一來源 N 則；排除 N 則（原因）」。每則只歸一類，四類加起來等於 N。沒有能檢查到的必看來源（例：網站擋讀取）也寫在這裡。讓使用者一眼知道這份報告有多可靠。
 
 ---
 
@@ -436,15 +453,18 @@ xxx-news-center/
 3. **照設定的廣度搜**：只看本業就不搜上下游；有「上下游」「相鄰產業」時，各至少搜 1 次
 4. **照來源清單搜**：先搜使用者的必看來源（可以用「site:網域」限定），再一般搜尋；排除來源一律不收
 5. 社群、論壇搜到的消息只當線索，要再搜一次找到媒體或第一手報導
+   - 一般搜尋常常找不到當天的新聞。能讀網頁時，優先看來源的最新列表或 RSS（例：iThome、科技新報、The Verge、中央社都有），再用搜尋補
+   - 網站擋讀取（出現驗證畫面、403）就換來源，不要想辦法繞過
 6. 只看到搜尋摘要、打不開原文的，不收（見「事實查證 5. 連結」）
 
 #### 篩選
 
 1. **發布日期**必須在設定的時間範圍內；看不到日期的不收
+   - **時間範圍和事實查證優先於追蹤關鍵字**。追蹤關鍵字命中、但超出時間範圍的，不收進正文、不計入則數，放頁尾「追蹤補充」一行（標題、日期、連結，最多 3 則）；連結打不開或查證不過的，連追蹤補充也不放
 2. **同一事件只收一則**，多家報導時挑最完整的當主連結，其他列為補充來源
 3. 跟使用者主題無關的熱門新聞不要硬塞
-4. 排序：追蹤關鍵字命中 ＞ 對使用者工作影響大 ＞ 新聞本身重要性
-5. 搜到的不夠設定則數，**就少給**，在頁尾寫「今天〔主題〕相關新聞較少，共 N 則」
+4. 排序：（時間範圍內的）追蹤關鍵字命中 ＞ 對使用者工作影響大 ＞ 新聞本身重要性
+5. 設定的則數是**上限**，不是要湊滿的目標。不夠**就少給**，在頁尾寫「今天〔主題〕相關新聞較少，共 N 則」
 
 #### 撰寫
 
@@ -477,7 +497,7 @@ xxx-news-center/
 |---|---|---|
 | 重要性 | 高／中／低 | 「高」最多佔三成；全部都是高，等於沒有排序 |
 | 要不要行動 | 需要行動＋下一步 | 下一步要具體（「本週跟小編更新 SOP」），不寫「持續關注」 |
-| 可信度 | 官方公告／多方報導／單一來源／傳聞／廠商業配或新聞稿 | 頁面寫「贊助」「新聞稿」「業配」就一定標出來 |
+| 可信度 | 官方公告／多方報導／同一新聞稿／單一來源／傳聞／廠商業配或新聞稿 | 頁面寫「贊助」「新聞稿」「業配」就一定標出來 |
 | 跟我有沒有關 | 不相關就不收 | 寧可少給，不湊數 |
 | 好壞消息 | 正面／負面／中性 | 站在使用者公司的角度判斷，不是新聞本身的情緒 |
 
@@ -498,7 +518,8 @@ AI 查證過不代表一定對。新聞中心交付時，提醒使用者養成�
 - [ ] 頁尾有查證說明
 - [ ] 日期全部在範圍內
 - [ ] 則數、分類、配色、語氣符合設定
-- [ ] 「今日三重點」跟下方內容一致
+- [ ] 有放「今日三重點」的話，跟下方內容一致；沒勾的項目沒有出現
+- [ ] 星期幾正確；超出時間範圍的追蹤新聞只在「追蹤補充」
 - [ ] 每個洞察和判斷都能指回某一則新聞，推論都有標示
 - [ ] 要分享給別人的版本，沒有使用者說不能外流的內容
 
@@ -519,6 +540,7 @@ AI 查證過不代表一定對。新聞中心交付時，提醒使用者養成�
 
 ##### HTML 單頁（預設）
 - 存成 `{{新聞中心名稱}}_YYYY-MM-DD.html`，雙擊就能用瀏覽器打開
+- **存在哪裡要看排程在哪裡跑**：在雲端跑，檔案附在對話裡，從對話下載；想自動存進電腦資料夾，排程要選那個資料夾，代價是電腦醒著、Claude 桌面 App 開著才會跑。兩個只能選一個，先問清楚
 - 版型已內建手機版排版與列印樣式，轉寄、放雲端都可以
 
 ##### PDF
@@ -551,13 +573,13 @@ AI 查證過不代表一定對。新聞中心交付時，提醒使用者養成�
 
 ```
 每{{平日／天／週X}} {{時間}}（{{時區}}）使用 {{skill名稱}} skill，產出最新一期的{{新聞中心名稱}}。
-完成後{{寄送方式：把精簡版寄到我的 Gmail {{信箱}}／在對話裡回覆三重點和檔案}}。
+完成後{{寄送方式：把精簡版寄到我的 Gmail {{信箱}}／在對話裡附上 HTML 檔，並回覆通知訊息}}。
 ```
 
 3. 也可以選「Set up manually」自己填：名稱、指令、頻率（每小時／每天／每週／平日／手動）
 4. 建好先按「立即執行」測一次
 
-- 排程任務在雲端執行，**電腦睡眠或 App 關著也會跑**；但手動設定時選了本機資料夾，就只會在電腦開著、App 開著時跑
+- 排程任務在雲端執行，**電腦睡眠或 App 關著也會跑**；但手動設定時選了電腦裡的資料夾，會打開「Require this computer」，就只會在電腦醒著、Claude 桌面 App 開著時跑
 - 排程任務需要付費方案（Pro 以上）
 
 **寄 Email（Gmail 連接器）**
@@ -625,13 +647,13 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
   新聞中心版型：簡約版（給 AI 套版用，使用者看不到這段）
   套版步驟：
   1. 自訂配色：只改 :root 的色票（--primary 主色、--accent 強調、--bg 底色、--text 文字）。文字和底色對比至少 4.5:1
-  2. 把所有 {{…}} 換成真的內容。範例只有一則新聞，照同樣結構複製 <article class="item">
+  2. 把所有 {{…}} 換成真的內容（星期幾要實際算過）。範例只有一則新聞，照同樣結構複製 <article class="item">
   3. 每個主題一個 <section class="topic" id="t1">，id 依序 t1、t2…，上方 nav 的連結跟著改
   4. 每份都要留頁尾的「查證說明」（.verify），照 news-rules.md「事實查證 7.」填
   5. 使用者沒勾的項目整塊刪掉：一句話結論（.lead）、三重點（.brief）、洞察（.insights）、判斷總覽（.judge）、
      每則的重要性／可信度標籤、💡跟你有什麼關係（.why）、✅需要行動（.action）
   6. 洞察是推論成分高的，chip 加 class="guess"，文字後面加「・推測」
-  7. 可信度出現「傳聞、單一來源、廠商新聞稿、業配、測試中、平台自行公布」時，chip 加 class="cred-warn"
+  7. 可信度出現「傳聞、單一來源、同一新聞稿、廠商新聞稿、業配、測試中、平台自行公布」時，chip 加 class="cred-warn"
   
   整份檔案不依賴網路，雙擊就能打開；用瀏覽器「列印 → 另存為 PDF」就是 A4 PDF。
 -->
@@ -639,7 +661,7 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{新聞中心名稱}}｜{{日期，例：2026 年 11 月 24 日 星期一}}</title>
+<title>{{新聞中心名稱}}｜{{日期，例：2026 年 11 月 24 日 星期二}}</title>
 <style>
   :root {
     --primary: #2450C8; --accent: #2450C8; --on-accent: #FFFFFF;
@@ -710,20 +732,20 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
 </head>
 <body class="style-minimal">
 <header class="masthead"><div class="wrap" style="padding-bottom:0">
-<p class="eyebrow">{{日期，例：2026 年 11 月 24 日 星期一}} ・ {{期別或涵蓋期間，例：第 12 期・涵蓋 11/17–11/23}}</p>
+<p class="eyebrow">{{日期，例：2026 年 11 月 24 日 星期二}} ・ {{期別或涵蓋期間，例：第 12 期・涵蓋 11/17–11/23}}</p>
 <h1>{{新聞中心名稱}}</h1>
 <p class="greeting">{{招呼語，例：早安，Amy！今天整理了 8 則，約 5 分鐘看完。}}</p>
 <nav class="chips"><a href="#t1">{{主題 1}}</a></nav></div></header>
 <main class="wrap">
 <section class="box lead"><h2>一句話結論</h2><p>{{一句話結論：今天最重要的一件事}}</p></section>
 <section class="box brief"><h2>今日三重點</h2><ol><li>{{重點 1，一句話}}</li><li>{{重點 2}}</li><li>{{重點 3}}</li></ol></section>
-<section class="box insights"><h2>AI 幫你多想一步</h2><ul><li><span class="chip">{{洞察類型：趨勢／影響／競品動態／機會／風險}}</span> {{一句話洞察}} <span class="refs">依據：{{第幾則，例：No.1、No.2}}</span></li><li><span class="chip guess">{{推論成分高的洞察}}・推測</span> {{一句話，用「可能」「可以留意」}} <span class="refs">依據：{{No.3}}</span></li></ul></section>
+<section class="box insights"><h2>AI 的洞察</h2><ul><li><span class="chip">{{洞察類型：趨勢／影響／競品動態／機會／風險}}</span> {{一句話洞察}} <span class="refs">依據：{{第幾則，例：No.1、No.2}}</span></li><li><span class="chip guess">{{推論成分高的洞察}}・推測</span> {{一句話，用「可能」「可以留意」}} <span class="refs">依據：{{No.3}}</span></li></ul></section>
 <section class="judge"><span><b>{{N}}</b>則新聞</span><span><b>{{N}}</b>則重要性高</span><span><b>{{N}}</b>則需要行動</span><span><b>{{N}}</b>則要留意可信度</span></section>
 <section class="topic" id="t1">
 <h2>{{主題 1}}<span class="count">1 則</span></h2>
 <div class="items">
 <article class="item">
-  <div class="labels"><span class="no">No.1</span><span class="chip imp-high">重要性 高</span><span class="chip cred-warn">{{可信度：官方公告／多方報導／單一來源／傳聞／廠商新聞稿}}</span></div>
+  <div class="labels"><span class="no">No.1</span><span class="chip imp-high">重要性 高</span><span class="chip cred-warn">{{可信度：官方公告／多方報導／同一新聞稿／單一來源／傳聞／廠商新聞稿}}</span></div>
   <h3><a href="{{原文連結}}" target="_blank" rel="noopener">{{用自己的話改寫的標題}}</a></h3>
   <p class="orig">{{國外新聞保留原文標題時才放}}</p>
   <p class="meta"><span>{{台灣／國際／國家}}</span><span>{{媒體名稱}}</span><span>{{發布日期，例：11/18}}</span></p>
@@ -735,7 +757,7 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
 </article>
 </div>
 </section>
-<section class="verify">🔎 <strong>查證說明：</strong>本期 {{N}} 則：交叉查證 {{N}} 則、第一手 {{N}} 則、單一來源 {{N}} 則；排除 {{N}} 則（{{原因，例：只有社群貼文、原文打不開}}）</section>
+<section class="verify">🔎 <strong>查證說明：</strong>本期 {{N}} 則：交叉查證 {{N}} 則、第一手 {{N}} 則、同一新聞稿 {{N}} 則、單一來源 {{N}} 則；排除 {{N}} 則（{{原因，例：只有社群貼文、原文打不開}}）。{{追蹤補充（超出時間範圍，不計入則數）：標題、日期、連結，最多 3 則；沒有就刪掉這句}}</section>
 <footer>{{新聞中心名稱}} ・ 由 AI 依你的設定整理，內容以各原文為準 ・ {{則數不足時：今天「主題」相關新聞較少，共 N 則}}</footer>
 </main>
 </body>
@@ -752,21 +774,21 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
   新聞中心版型：報紙風（給 AI 套版用，使用者看不到這段）
   套版步驟：
   1. 自訂配色：只改 :root 的色票（--primary 主色、--accent 強調、--bg 底色、--text 文字）。文字和底色對比至少 4.5:1
-  2. 把所有 {{…}} 換成真的內容。範例只有一則新聞，照同樣結構複製 <article class="item">
+  2. 把所有 {{…}} 換成真的內容（星期幾要實際算過）。範例只有一則新聞，照同樣結構複製 <article class="item">
   3. 每個主題一個 <section class="topic" id="t1">，id 依序 t1、t2…，上方 nav 的連結跟著改
   4. 每份都要留頁尾的「查證說明」（.verify），照 news-rules.md「事實查證 7.」填
   5. 使用者沒勾的項目整塊刪掉：一句話結論（.lead）、三重點（.brief）、洞察（.insights）、判斷總覽（.judge）、
      每則的重要性／可信度標籤、💡跟你有什麼關係（.why）、✅需要行動（.action）
   6. 洞察是推論成分高的，chip 加 class="guess"，文字後面加「・推測」
-  7. 可信度出現「傳聞、單一來源、廠商新聞稿、業配、測試中、平台自行公布」時，chip 加 class="cred-warn"
-  
+  7. 可信度出現「傳聞、單一來源、同一新聞稿、廠商新聞稿、業配、測試中、平台自行公布」時，chip 加 class="cred-warn"
+  8. 報紙風：第一個主題的第一則加 class="cover"，會變成跨欄頭條，整份只用一次；重要性高的主題排前面
   整份檔案不依賴網路，雙擊就能打開；用瀏覽器「列印 → 另存為 PDF」就是 A4 PDF。
 -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{新聞中心名稱}}｜{{日期，例：2026 年 11 月 24 日 星期一}}</title>
+<title>{{新聞中心名稱}}｜{{日期，例：2026 年 11 月 24 日 星期二}}</title>
 <style>
   :root {
     --primary: #111111; --accent: #8E1B1B; --on-accent: #FFFFFF;
@@ -814,7 +836,7 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
   a { color: var(--text); }
   header.masthead { text-align: center; padding: 28px 0 0; }
   header.masthead .rule { border-top: 3px double var(--text); border-bottom: 1px solid var(--text); padding: 8px 0 12px; margin-top: 10px; }
-  .eyebrow { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin: 0; border-bottom: 1px solid var(--text); padding-bottom: 6px; }
+  .eyebrow { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 16px; font-size: 13px; color: var(--muted); margin: 0; border-bottom: 1px solid var(--text); padding-bottom: 6px; }
   h1 { font-family: var(--font-head); font-size: clamp(34px, 7vw, 58px); line-height: 1.1; margin: 0; font-weight: 900; letter-spacing: .02em; }
   .greeting { margin: 6px 0 0; font-style: italic; color: var(--muted); }
   nav.chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px 18px; margin: 8px 0 0; padding: 6px 0; border-bottom: 1px solid var(--text); font-size: 14px; }
@@ -835,7 +857,11 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
   section.topic > h2 .count { font-weight: 400; color: var(--muted); margin-left: 8px; letter-spacing: 0; }
   .items { columns: 2 300px; column-gap: 30px; column-rule: 1px solid var(--line); }
   article.item { break-inside: avoid; margin: 0 0 22px; }
+  .items:has(> article.item:only-child), .items:has(> article.item.cover + article.item:last-child) { columns: 1; }
+  article.item.cover { column-span: all; border-bottom: 1px solid var(--text); padding-bottom: 18px; margin-bottom: 20px; }
+  .items:has(> article.item.cover:only-child) article.item.cover { border-bottom: 0; padding-bottom: 0; }
   .item h3 { font-family: var(--font-head); font-size: 21px; line-height: 1.35; margin: 0 0 6px; font-weight: 900; }
+  article.item.cover h3 { font-size: clamp(27px, 4.6vw, 42px); line-height: 1.25; }
   .item h3 a { text-decoration: none; }
   .item h3 a:hover { text-decoration: underline; }
   .chip { border-radius: 0; }
@@ -845,7 +871,7 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
 </head>
 <body class="style-times">
 <header class="masthead"><div class="wrap" style="padding-bottom:0">
-<p class="eyebrow"><span>{{日期，例：2026 年 11 月 24 日 星期一}}</span><span>{{期別或涵蓋期間，例：第 12 期・涵蓋 11/17–11/23}}</span></p>
+<p class="eyebrow"><span>{{日期，例：2026 年 11 月 24 日 星期二}}</span><span>{{期別或涵蓋期間，例：第 12 期・涵蓋 11/17–11/23}}</span></p>
 <div class="rule"><h1>{{新聞中心名稱}}</h1><p class="greeting">{{招呼語，例：早安，Amy！今天整理了 8 則，約 5 分鐘看完。}}</p></div>
 <nav class="chips"><a href="#t1">{{主題 1}}</a></nav></div></header>
 <main class="wrap">
@@ -853,13 +879,13 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
 <section class="box lead"><h2>一句話結論</h2><p>{{一句話結論：今天最重要的一件事}}</p></section>
 <section class="box brief"><h2>今日三重點</h2><ol><li>{{重點 1，一句話}}</li><li>{{重點 2}}</li><li>{{重點 3}}</li></ol></section>
 </div>
-<section class="box insights"><h2>AI 幫你多想一步</h2><ul><li><span class="chip">{{洞察類型：趨勢／影響／競品動態／機會／風險}}</span> {{一句話洞察}} <span class="refs">依據：{{第幾則，例：No.1、No.2}}</span></li><li><span class="chip guess">{{推論成分高的洞察}}・推測</span> {{一句話，用「可能」「可以留意」}} <span class="refs">依據：{{No.3}}</span></li></ul></section>
+<section class="box insights"><h2>AI 的洞察</h2><ul><li><span class="chip">{{洞察類型：趨勢／影響／競品動態／機會／風險}}</span> {{一句話洞察}} <span class="refs">依據：{{第幾則，例：No.1、No.2}}</span></li><li><span class="chip guess">{{推論成分高的洞察}}・推測</span> {{一句話，用「可能」「可以留意」}} <span class="refs">依據：{{No.3}}</span></li></ul></section>
 <section class="judge"><span><b>{{N}}</b>則新聞</span><span><b>{{N}}</b>則重要性高</span><span><b>{{N}}</b>則需要行動</span><span><b>{{N}}</b>則要留意可信度</span></section>
 <section class="topic" id="t1">
 <h2>{{主題 1}}<span class="count">1 則</span></h2>
 <div class="items">
-<article class="item">
-  <div class="labels"><span class="no">No.1</span><span class="chip imp-high">重要性 高</span><span class="chip cred-warn">{{可信度：官方公告／多方報導／單一來源／傳聞／廠商新聞稿}}</span></div>
+<article class="item cover">
+  <div class="labels"><span class="no">No.1</span><span class="chip imp-high">重要性 高</span><span class="chip cred-warn">{{可信度：官方公告／多方報導／同一新聞稿／單一來源／傳聞／廠商新聞稿}}</span></div>
   <h3><a href="{{原文連結}}" target="_blank" rel="noopener">{{用自己的話改寫的標題}}</a></h3>
   <p class="orig">{{國外新聞保留原文標題時才放}}</p>
   <p class="meta"><span>{{台灣／國際／國家}}</span><span>{{媒體名稱}}</span><span>{{發布日期，例：11/18}}</span></p>
@@ -871,7 +897,7 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
 </article>
 </div>
 </section>
-<section class="verify">🔎 <strong>查證說明：</strong>本期 {{N}} 則：交叉查證 {{N}} 則、第一手 {{N}} 則、單一來源 {{N}} 則；排除 {{N}} 則（{{原因，例：只有社群貼文、原文打不開}}）</section>
+<section class="verify">🔎 <strong>查證說明：</strong>本期 {{N}} 則：交叉查證 {{N}} 則、第一手 {{N}} 則、同一新聞稿 {{N}} 則、單一來源 {{N}} 則；排除 {{N}} 則（{{原因，例：只有社群貼文、原文打不開}}）。{{追蹤補充（超出時間範圍，不計入則數）：標題、日期、連結，最多 3 則；沒有就刪掉這句}}</section>
 <footer>{{新聞中心名稱}} ・ 由 AI 依你的設定整理，內容以各原文為準 ・ {{則數不足時：今天「主題」相關新聞較少，共 N 則}}</footer>
 </main>
 </body>
@@ -888,21 +914,21 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
   新聞中心版型：雜誌風（給 AI 套版用，使用者看不到這段）
   套版步驟：
   1. 自訂配色：只改 :root 的色票（--primary 主色、--accent 強調、--bg 底色、--text 文字）。文字和底色對比至少 4.5:1
-  2. 把所有 {{…}} 換成真的內容。範例只有一則新聞，照同樣結構複製 <article class="item">
+  2. 把所有 {{…}} 換成真的內容（星期幾要實際算過）。範例只有一則新聞，照同樣結構複製 <article class="item">
   3. 每個主題一個 <section class="topic" id="t1">，id 依序 t1、t2…，上方 nav 的連結跟著改
   4. 每份都要留頁尾的「查證說明」（.verify），照 news-rules.md「事實查證 7.」填
   5. 使用者沒勾的項目整塊刪掉：一句話結論（.lead）、三重點（.brief）、洞察（.insights）、判斷總覽（.judge）、
      每則的重要性／可信度標籤、💡跟你有什麼關係（.why）、✅需要行動（.action）
   6. 洞察是推論成分高的，chip 加 class="guess"，文字後面加「・推測」
-  7. 可信度出現「傳聞、單一來源、廠商新聞稿、業配、測試中、平台自行公布」時，chip 加 class="cred-warn"
-  8. 雜誌風：第一個主題的第一則加 class="cover"，會變成封面故事
+  7. 可信度出現「傳聞、單一來源、同一新聞稿、廠商新聞稿、業配、測試中、平台自行公布」時，chip 加 class="cred-warn"
+  8. 雜誌風：第一個主題的第一則加 class="cover"，會變成封面故事，整份只用一次；重要性高的主題排前面
   整份檔案不依賴網路，雙擊就能打開；用瀏覽器「列印 → 另存為 PDF」就是 A4 PDF。
 -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{新聞中心名稱}}｜{{日期，例：2026 年 11 月 24 日 星期一}}</title>
+<title>{{新聞中心名稱}}｜{{日期，例：2026 年 11 月 24 日 星期二}}</title>
 <style>
   :root {
     --primary: #5B3FD1; --accent: #FF6B4A; --on-accent: #FFFFFF;
@@ -976,6 +1002,8 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
   article.item.cover h3 { font-size: clamp(22px, 3.4vw, 30px); }
   article.item.cover h3 a, article.item.cover .meta, article.item.cover .no { color: #fff; }
   article.item.cover .meta { opacity: .85; }
+  article.item.cover .orig, article.item.cover .sources, article.item.cover .primary { color: rgba(255,255,255,.88); }
+  .items:not(:has(> .cover)) > article.item:last-child:nth-child(odd) { grid-column: 1 / -1; }
   article.item.cover .why, article.item.cover .action { background: rgba(255,255,255,.14); color: #fff; }
   article.item.cover .chip.imp-high { background: var(--accent); }
   article.item.cover .chip:not(.imp-high) { background: rgba(255,255,255,.18); color: #fff; border-color: transparent; }
@@ -987,7 +1015,7 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
 </head>
 <body class="style-magazine">
 <header class="masthead"><div class="wrap" style="padding-bottom:0">
-<p class="eyebrow">{{日期，例：2026 年 11 月 24 日 星期一}} ・ {{期別或涵蓋期間，例：第 12 期・涵蓋 11/17–11/23}}</p>
+<p class="eyebrow">{{日期，例：2026 年 11 月 24 日 星期二}} ・ {{期別或涵蓋期間，例：第 12 期・涵蓋 11/17–11/23}}</p>
 <h1>{{新聞中心名稱}}</h1>
 <p class="greeting">{{招呼語，例：早安，Amy！今天整理了 8 則，約 5 分鐘看完。}}</p>
 <nav class="chips"><a href="#t1">{{主題 1}}</a></nav></div></header>
@@ -996,13 +1024,13 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
 <section class="box lead"><h2>一句話結論</h2><p>{{一句話結論：今天最重要的一件事}}</p></section>
 <section class="box brief"><h2>今日三重點</h2><ol><li>{{重點 1，一句話}}</li><li>{{重點 2}}</li><li>{{重點 3}}</li></ol></section>
 </div>
-<section class="box insights"><h2>AI 幫你多想一步</h2><ul><li><span class="chip">{{洞察類型：趨勢／影響／競品動態／機會／風險}}</span> {{一句話洞察}} <span class="refs">依據：{{第幾則，例：No.1、No.2}}</span></li><li><span class="chip guess">{{推論成分高的洞察}}・推測</span> {{一句話，用「可能」「可以留意」}} <span class="refs">依據：{{No.3}}</span></li></ul></section>
+<section class="box insights"><h2>AI 的洞察</h2><ul><li><span class="chip">{{洞察類型：趨勢／影響／競品動態／機會／風險}}</span> {{一句話洞察}} <span class="refs">依據：{{第幾則，例：No.1、No.2}}</span></li><li><span class="chip guess">{{推論成分高的洞察}}・推測</span> {{一句話，用「可能」「可以留意」}} <span class="refs">依據：{{No.3}}</span></li></ul></section>
 <section class="judge"><span><b>{{N}}</b>則新聞</span><span><b>{{N}}</b>則重要性高</span><span><b>{{N}}</b>則需要行動</span><span><b>{{N}}</b>則要留意可信度</span></section>
 <section class="topic" id="t1">
 <h2>{{主題 1}}<span class="count">1 則</span></h2>
 <div class="items">
 <article class="item cover">
-  <div class="labels"><span class="no">No.1</span><span class="chip imp-high">重要性 高</span><span class="chip cred-warn">{{可信度：官方公告／多方報導／單一來源／傳聞／廠商新聞稿}}</span></div>
+  <div class="labels"><span class="no">No.1</span><span class="chip imp-high">重要性 高</span><span class="chip cred-warn">{{可信度：官方公告／多方報導／同一新聞稿／單一來源／傳聞／廠商新聞稿}}</span></div>
   <h3><a href="{{原文連結}}" target="_blank" rel="noopener">{{用自己的話改寫的標題}}</a></h3>
   <p class="orig">{{國外新聞保留原文標題時才放}}</p>
   <p class="meta"><span>{{台灣／國際／國家}}</span><span>{{媒體名稱}}</span><span>{{發布日期，例：11/18}}</span></p>
@@ -1014,7 +1042,7 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
 </article>
 </div>
 </section>
-<section class="verify">🔎 <strong>查證說明：</strong>本期 {{N}} 則：交叉查證 {{N}} 則、第一手 {{N}} 則、單一來源 {{N}} 則；排除 {{N}} 則（{{原因，例：只有社群貼文、原文打不開}}）</section>
+<section class="verify">🔎 <strong>查證說明：</strong>本期 {{N}} 則：交叉查證 {{N}} 則、第一手 {{N}} 則、同一新聞稿 {{N}} 則、單一來源 {{N}} 則；排除 {{N}} 則（{{原因，例：只有社群貼文、原文打不開}}）。{{追蹤補充（超出時間範圍，不計入則數）：標題、日期、連結，最多 3 則；沒有就刪掉這句}}</section>
 <footer>{{新聞中心名稱}} ・ 由 AI 依你的設定整理，內容以各原文為準 ・ {{則數不足時：今天「主題」相關新聞較少，共 N 則}}</footer>
 </main>
 </body>
@@ -1028,7 +1056,7 @@ Gemini 用「**排定的動作（Scheduled actions）**」。
 ````markdown
 ---
 name: {{skill名稱，例：amy-news-center}}
-description: {{稱呼}}的專屬新聞中心「{{新聞中心名稱}}」。依固定設定搜尋{{主題清單}}的最新新聞，整理成重點摘要與出處，附上洞察與判斷，輸出成{{風格}}的新聞報告（{{收件方式}}）。當使用者說「今天的新聞」「我的新聞中心」「{{新聞中心名稱}}」「每日新聞」「幫我看今天新聞」，或排程任務每天自動執行時使用。使用者說「改新聞中心設定」時，依指示更新這份設定。
+description: {{稱呼}}的專屬新聞中心「{{新聞中心名稱}}」。搜尋{{主題清單，縮成短詞}}的最新新聞，產出{{風格}}報告。當使用者說「今天的新聞」「我的新聞中心」「{{新聞中心名稱}}」「每日新聞」，或排程任務執行時使用；說「改新聞中心設定」時更新設定。{{整段填完要在 200 字以內，太長就縮主題；這句刪掉}}
 ---
 
 # {{新聞中心名稱}}
@@ -1044,15 +1072,15 @@ description: {{稱呼}}的專屬新聞中心「{{新聞中心名稱}}」。依�
 | 看完拿去 | {{用途}} |
 | 目的 | {{跟上趨勢／盯特定對象／找素材／支援決策／風險預警}} |
 | 主題 | {{① 主題 1 ② 主題 2 ③ 主題 3 …}} |
-| 特別追蹤 | {{關鍵字，出現就一定收錄；沒有寫「無」}} |
+| 特別追蹤 | {{關鍵字，在時間範圍內出現就一定收錄，超出範圍放頁尾「追蹤補充」；沒有寫「無」}} |
 | 不要看 | {{排除主題；沒有寫「無」}} |
 | 廣度 | {{只看本業／本業＋上下游／本業＋相鄰產業／跨產業大趨勢}} |
 | 地區 | {{台灣／國際／指定國家}} |
 | 國外新聞 | {{翻成繁中摘要、標題保留原文／全中文／保留英文}} |
 | 深度 | {{快訊／重點／深度／混合}}；第一手資料：{{要追／不用}} |
 | 來源清單 | 第一手：{{…}}；媒體：{{…}}；社群與論壇只當線索；排除：{{…}} |
-| 份量 | {{N}} 則，約 {{N}} 分鐘看完{{；深度版：3 則深度分析＋快訊}} |
-| 時間範圍 | {{過去 24 小時（星期一自動涵蓋週末）／過去 7 天}} |
+| 份量 | 最多 {{N}} 則，約 {{N}} 分鐘看完{{；深度版：3 則深度分析＋快訊}} |
+| 時間範圍 | {{過去 24 小時／過去 48 小時／過去 7 天；只在平日收的，加上「星期一自動涵蓋週末」，每天都收的不加}} |
 | 洞察 | {{趨勢／影響／競品動態／機會／風險／一句話結論，沒選寫「不用」}} |
 | 判斷 | {{重要性／要不要行動／可信度／跟我有沒有關／好壞消息，沒選寫「不用」}} |
 | 跟我有什麼關係 | {{要／不用}} |
@@ -1066,19 +1094,19 @@ description: {{稱呼}}的專屬新聞中心「{{新聞中心名稱}}」。依�
 
 ## 每次執行的步驟
 
-1. **搜尋**：照「廣度」決定搜哪些範圍；先搜「來源清單」的第一手與媒體來源（可用 site:網域），再一般搜尋。每個主題至少搜 2 次（中文一次、英文或換說法一次）；「特別追蹤」的關鍵字各自單獨搜。搜尋字串加上今天的年月。社群、論壇搜到的只當線索，要再找到媒體或第一手報導。
-2. **篩選**：只收時間範圍內、看得到發布日期的報導；同一事件只收一則；跳過「不要看」的主題、排除來源、內容農場、無日期頁面。排序：追蹤關鍵字 ＞ 對我工作影響大 ＞ 新聞重要性。
+1. **搜尋**：照「廣度」決定搜哪些範圍；先搜「來源清單」的第一手與媒體來源（可用 site:網域），再一般搜尋。每個主題至少搜 2 次（中文一次、英文或換說法一次）；「特別追蹤」的關鍵字各自單獨搜。搜尋字串加上今天的年月。能讀網頁時，先看來源的最新列表或 RSS 再搜尋；網站擋讀取就換來源並在查證說明註明。社群、論壇搜到的只當線索，要再找到媒體或第一手報導。
+2. **篩選**：只收時間範圍內、看得到發布日期的報導；同一事件只收一則；跳過「不要看」的主題、排除來源、內容農場、無日期頁面。時間範圍和事實查證優先於追蹤關鍵字：追蹤命中但超出範圍的，放頁尾「追蹤補充」（標題、日期、連結，最多 3 則），不計入則數。排序：追蹤關鍵字 ＞ 對我工作影響大 ＞ 新聞重要性。
 3. **事實查證**（每一則都要過，做不到就不收）：
    - 連結都實際打開過，內容和日期跟摘要一致；付費牆標「付費內容，摘要依公開段落」
-   - 重要性「高」或「需要行動」的新聞：至少兩個獨立來源，或一個第一手來源；只有一個來源就標「單一來源」、不能標高
+   - 重要性「高」或「需要行動」的新聞：至少兩個獨立來源，或一個第一手來源；只有一個來源就標「單一來源」、不能標高；多家寫同一份新聞稿標「同一新聞稿」，不算獨立來源
    - 數字回到原文核對，照原文寫，寫清楚基準（跟平日比、跟去年比）；公司自己公布的標「自行公布」
    - 分清楚事實、引述（「XX 表示」「業者宣稱」）和推論（標「推測」）
-   - 舊聞轉載以最早的報導日期為準；人物職稱照報導當時的寫法
+   - 舊聞轉載或改寫以最早的報導日期為準，有新進展才收；星期幾要實際算過；人物職稱照報導當時的寫法
 4. **撰寫**：照「深度」寫（快訊一句話／重點 3 點／深度含背景與各方說法／混合），用自己的話寫，不整段複製原文。「跟我有什麼關係」寫一句具體的話，連到我的職業、用途與目的。設定要追第一手時，附第一手資料連結。
    **洞察與判斷**：只做設定表勾選的項目。每個洞察寫明依據第幾則；重要性「高」最多三成；可信度遇到傳聞、單一來源、廠商新聞稿或業配一定標出來。
-   **查證說明**：頁尾寫「本期 N 則：交叉查證 N 則、第一手 N 則、單一來源 N 則；排除 N 則（原因）」。
+   **查證說明**：頁尾寫「本期 N 則：交叉查證 N 則、第一手 N 則、同一新聞稿 N 則、單一來源 N 則；排除 N 則（原因）」，四類加起來等於 N。
 5. **套版**：使用同資料夾的 `template.html`，風格與配色已經設定好，不要改顏色。照檔案開頭註解填入內容。
-6. **存檔**：檔名 `{{新聞中心名稱}}_YYYY-MM-DD.html`。能存到電腦時，存到 `{{存放資料夾，例：文件/我的新聞中心}}`；不能存檔就直接給我下載。
+6. **存檔**：檔名 `{{新聞中心名稱}}_YYYY-MM-DD.html`。在雲端跑（或不能存到電腦）時，附在對話裡讓我下載；排程選了電腦資料夾時，存到那個資料夾{{，例：文件/我的新聞中心；沒選資料夾就刪掉後半句}}。
 7. **寄送**：{{收件方式的做法：存成 HTML／轉成 PDF（不能轉就請我用瀏覽器列印另存 PDF）／把精簡版寄到我的信箱 {{信箱}}}}。只寄給我自己。
 8. **通知訊息**：在對話裡回覆：
    ```
@@ -1089,6 +1117,7 @@ description: {{稱呼}}的專屬新聞中心「{{新聞中心名稱}}」。依�
    3. …
    👉 完整新聞：〔HTML 檔〕
    ```
+   {{沒勾「今日三重點」：把三重點那 4 行換成「📌 頭條：…」；有勾「要不要行動」：加一行「✅ 需要行動：N 則」。改完刪掉這句}}
 
 ## 底線規則（每次都要遵守）
 
@@ -1097,7 +1126,7 @@ description: {{稱呼}}的專屬新聞中心「{{新聞中心名稱}}」。依�
 - 洞察與判斷是推論，一律標示，不寫成事實。
 - 不自動寄信給我以外的人。
 - 不給投資買賣建議、不給醫療或法律個案建議。
-- 交付前檢查：連結都打開過、日期都在範圍內、數字跟原文一致、三重點和下方內容一致、頁尾有查證說明。
+- 交付前檢查：連結都打開過、日期都在範圍內、數字跟原文一致、{{有勾三重點才留：三重點和下方內容一致、}}頁尾有查證說明。
 - 我回報錯誤時，先修正、再說明錯在哪；同一個來源錯兩次，問我要不要加進排除名單。
 
 ## 修改設定
